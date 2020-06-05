@@ -98,12 +98,17 @@ class GameFragment : Fragment() {
                         binding.invalidateAll()
                     } else {
                         // We've won!  Navigate to the gameWonFragment.
-                        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
+                        //view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
+                         // We can at the same time navigate and pass parameters along the way
+                        view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameWonFragment(numQuestions,questionIndex))
 
                     }
                 } else {
                     // Game over! A wrong answer sends us to the gameOverFragment.
-                    view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment2)
+                    //view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment2)
+
+                    // We can pass the argument at the same time we are navigating to a new screen
+                    view.findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameOverFragment2())
                 }
             }
         }

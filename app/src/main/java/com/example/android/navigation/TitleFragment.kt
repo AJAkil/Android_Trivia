@@ -34,7 +34,10 @@ class TitleFragment : Fragment() {
             //Navigation.createNavigateOnClickListener(R.id.gameFragment)
 
             // below is the extension function for the android view class
-            view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+            //view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+
+            // Lastly we would use Direction classes to navigate to the start of the game, the ga,e fragment
+            view.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_about_trivia)

@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -35,7 +36,15 @@ class GameWonFragment : Fragment() {
                 inflater, R.layout.fragment_game_won, container, false)
 
         binding.nextMatchButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)
+            //view.findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)
+
+            // We would use Direction classes to navigate back to the game fragment
+            view.findNavController().navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
+        }
+
+        var args = arguments?.let { GameWonFragmentArgs.fromBundle(it) }
+        if (args != null) {
+            Toast.makeText(context, "NumCorrect : ${args.numCorrect}, NumQuestions : ${args.numQuestions}", Toast.LENGTH_SHORT).show()
         }
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.try_again)
