@@ -1,11 +1,13 @@
 package com.example.android.navigation
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.FragmentTitleBinding
 
 
@@ -24,14 +26,37 @@ class TitleFragment : Fragment() {
                 inflater, R.layout.fragment_title, container, false
         )
 
-        // binding object
+        // binding object is used to navigate to the next screen with the click of a button.
         binding.playButton.setOnClickListener { view: View ->
+            //Navigation.findNavController(view).navigate(R.id.gameFragment)
 
+            // we can actually do it with the Navigation class itself
+            //Navigation.createNavigateOnClickListener(R.id.gameFragment)
+
+            // below is the extension function for the android view class
+            view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
         }
+
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_about_trivia)
+        // We tell android we are going to have a menu associated with our title fragment by setting setHasOptionsMenu = true
+        setHasOptionsMenu(true)
+
 
         return binding.root
 
     }
 
+    // This method creates the menu by inflating the menu layout
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.overflow_menu, menu)
+    }
 
+    // This function decides what happens if we select an item of the menu item
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item,
+                view!!.findNavController()
+        ) || super.onOptionsItemSelected(item)
+
+    }
 }
